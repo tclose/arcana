@@ -1,0 +1,124 @@
+$page.setTitle("Biosamples")
+$page.setLinkColor($ui.alink)
+$page.setVlinkColor($ui.vlink)
+<script type="text/javascript">
+window.currentID="$!om.getId()";
+    #if($om.getProject())
+     #if($om.getProject().equals(""))
+window.currentProject="$!project";
+     #else
+window.currentProject="$!om.getProject()";
+     #end
+    #else
+window.currentProject="$!project";
+    #end
+
+window.currentSubject="$!om.getSubjectId()";
+window.currentLabel="$!om.getLabel()";
+</script>
+#if ($data.message)
+<div class="error">$data.message</div>
+#end
+<div id="biosampleAssessmentFormDiv">
+<form ID="biosampleAssessmentForm" name="biosampleAssessmentForm" method="post" action="$link.setAction("ModifySubjectAssessorData")">
+    <input type="hidden" name="project" value="$!{project}">
+    <input type="hidden" name="part_id" value="$!{subjectId}">
+    <input type='hidden' name='workshop:biosampleCollection/ID' value='$!item.getProperty("ID")'/>
+    <input type="hidden" name="workshop:biosampleCollection/project" value='$!{project}'/>
+    <input type='hidden' name='workshop:biosampleCollection/subject_ID' value='$!{subjectId}'/>
+    <input type='hidden' name='workshop:biosampleCollection/label' value='$!label'/>
+    <input type="hidden" name="workshop:biosampleCollection.date.month" id="workshop:biosampleCollection.date.month" value=""/>
+    <input type="hidden" name="workshop:biosampleCollection.date.date" id="workshop:biosampleCollection.date.date" value=""/>
+    <input type="hidden" name="workshop:biosampleCollection.date.year" id="workshop:biosampleCollection.date.year" value=""/>
+    <input type="hidden" name="$om.getXSIType()/ID" id="$om.getXSIType()/ID" value="$!om.getId()"/>
+
+    #if($vr)
+    <div class="error">Invalid parameters:<BR>$vr.toHTML()</div>
+    <HR>
+    #end
+
+<table width="100%">
+<tr>
+    <td>
+        <table width="100%">
+            <tr>
+                <td align="left" valign="middle">
+                    <div class="edit_title">Biosamples</div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <tr>
+                <td valign="top" colspan=2>
+                    <table>
+                        <tr>
+                            <td colspan="2">#parse("/screens/EditProjectSpecificFields.vm")</td>
+                        </tr>
+                        <tr>
+                             <td colspan="2">Have the following biosamples be taken and stored as per protocol?</td>
+                         </tr>
+                         <tr>
+                             #formLabel("DNA")
+                             <td>
+                                 #xdatBooleanRadioYesNoWithoutDefault("workshop:biosampleCollection/dna" $item $vr)
+                             </td>
+                         </tr>
+                         <tr>
+                             #formLabel("RNA")
+                             <td>
+                                 #xdatBooleanRadioYesNoWithoutDefault("workshop:biosampleCollection/rna" $item $vr)
+                             </td>
+                         </tr>
+                         <tr>
+                             #formLabel("Plasma")
+                             <td>
+                                 #xdatBooleanRadioYesNoWithoutDefault("workshop:biosampleCollection/plasma" $item $vr)
+                             </td>
+                         </tr>
+                         <tr>
+                             #formLabel("Serum")
+                             <td>
+                                 #xdatBooleanRadioYesNoWithoutDefault("workshop:biosampleCollection/serum" $item $vr)
+                             </td>
+                         </tr>
+                         <tr>
+                             #formLabel("CSF")
+                             <td>
+                                 #xdatBooleanRadioYesNoWithoutDefault("workshop:biosampleCollection/CSF" $item $vr)
+                             </td>
+                         </tr>
+                     </table>
+                 </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        #xdatEditProps($item $edit_screen)
+    </td>
+</tr>
+<tr>
+    <td colspan=2 align=left>
+        <input type="button" onclick="validateForm();" name="eventSubmit_doInsert" value="Submit"/>
+    </td>
+</tr>
+</table>
+</form>
+</div>
+
+<script type="text/javascript">
+    function validateForm() {
+        var today = new Date();
+        document.getElementById('workshop:biosampleCollection.date.month').value = today.getMonth();
+        document.getElementById('workshop:biosampleCollection.date.date').value = today.getDate();
+        document.getElementById('workshop:biosampleCollection.date.year').value = today.getFullYear();
+
+        document.biosampleAssessmentForm.submit();
+        return true;
+    }
+</script>

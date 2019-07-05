@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ xnat-workshop: /Users/rherrick/Development/XNAT/1.7/plugins/xnat-workshop-plugin/src/main/resources/schemas/radRead/display/rad_radiologyReadData_display.xml
+  ~ XNAT http://www.xnat.org
+  ~ Copyright (c) 2017, Washington University School of Medicine
+  ~ All Rights Reserved
+  ~
+  ~ Released under the Simplified BSD.
+  -->
+
+<Displays xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xdat/display.xsd" schema-element="rad:radiologyReadData" full-description="RadiologyRead" brief-description="RadiologyRead">
+	<DisplayField id="INSERT_DATE" header="Inserted" visible="true" searchable="true" data-type="string">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData.meta.insert_date"/>
+	</DisplayField>
+	<DisplayField id="INSERT_USER" header="Creator" visible="true" searchable="true" data-type="string">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData.meta.insert_user.login"/>
+	</DisplayField>
+	<DisplayField id="MODALITY" header="modality" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/modality"/>
+	</DisplayField>
+	<DisplayField id="READER" header="reader" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/reader"/>
+	</DisplayField>
+	<DisplayField id="TECHNIQUE" header="technique" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/technique"/>
+	</DisplayField>
+	<DisplayField id="FINDING" header="finding" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/finding"/>
+	</DisplayField>
+	<DisplayField id="FINDING_NORMAL_STATUS" header="normal_status" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/finding/normal_status"/>
+	</DisplayField>
+	<DisplayField id="DIAGNOSIS" header="diagnosis" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/diagnosis"/>
+	</DisplayField>
+	<DisplayField id="COMPARISON" header="comparison" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/comparison"/>
+	</DisplayField>
+	<DisplayField id="HISTORY" header="history" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/history"/>
+	</DisplayField>
+	<DisplayField id="EXAM" header="exam" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/exam"/>
+	</DisplayField>
+	<DisplayField id="FOLLOWUP_RECOMMENDED" header="followup_recommended" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/followup_recommended"/>
+	</DisplayField>
+	<DisplayField id="CUSTOMIZED" header="followup_recommended" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="rad:radiologyReadData/followup_recommended"/>
+	</DisplayField>
+	<DisplayVersion versionName="listing" default-order-by="RADIOLOGYREADDATA" default-sort-order="DESC" brief-description="RadiologyRead" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="RADIOLOGYREADDATA"/>
+		<DisplayFieldRef id="MODALITY"/>
+		<DisplayFieldRef id="READER"/>
+		<DisplayFieldRef id="TECHNIQUE"/>
+		<DisplayFieldRef id="FINDING"/>
+		<DisplayFieldRef id="FINDING_NORMAL_STATUS"/>
+		<DisplayFieldRef id="DIAGNOSIS"/>
+		<DisplayFieldRef id="COMPARISON"/>
+		<DisplayFieldRef id="HISTORY"/>
+		<DisplayFieldRef id="EXAM"/>
+		<DisplayFieldRef id="FOLLOWUP_RECOMMENDED"/>
+	</DisplayVersion>
+	<DisplayVersion versionName="full" default-order-by="RADIOLOGYREADDATA" default-sort-order="DESC" brief-description="RadiologyRead" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="RADIOLOGYREADDATA"/>
+		<DisplayFieldRef id="MODALITY"/>
+		<DisplayFieldRef id="READER"/>
+		<DisplayFieldRef id="TECHNIQUE"/>
+		<DisplayFieldRef id="FINDING"/>
+		<DisplayFieldRef id="FINDING_NORMAL_STATUS"/>
+		<DisplayFieldRef id="DIAGNOSIS"/>
+		<DisplayFieldRef id="COMPARISON"/>
+		<DisplayFieldRef id="HISTORY"/>
+		<DisplayFieldRef id="EXAM"/>
+		<DisplayFieldRef id="FOLLOWUP_RECOMMENDED"/>
+	</DisplayVersion>
+</Displays>

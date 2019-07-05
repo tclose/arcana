@@ -1,0 +1,10 @@
+/*
+ * Arcana XNAT plugin: settings.gradle
+ * Copyright (c) 2017, Monash Biomedical Imaging, Monash University,
+ * Melbourne, Australia
+ * All Rights Reserved
+ *
+ * Released under the Simplified BSD.
+ */
+
+rootProject.name = 'arcana-xnat-plugin'
