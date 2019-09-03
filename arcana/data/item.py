@@ -383,10 +383,13 @@ class Fileset(BaseItemMixin, BaseFileset):
                 "Cannot get paths of fileset ({}) that hasn't had its format "
                 "set".format(self))
         if self.format.directory:
-            return chain(*((op.join(root, f) for f in files)
-                           for root, _, files in os.walk(self.path)))
+            for root, _, files in os.walk(self.path):
+                for fname in files:
+                    yield op.join(root, fname)
         else:
-            return chain([self.path], self.aux_files.values())
+            yield self.path
+            for aux_path in self.aux_files.values():
+                yield aux_path
 
     @property
     def format(self):
