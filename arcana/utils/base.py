@@ -1,5 +1,5 @@
 from past.builtins import basestring
-from future.utils import PY3, PY2
+from future.utils import PY3
 import subprocess as sp
 import importlib
 from itertools import zip_longest
@@ -9,7 +9,6 @@ from nipype.interfaces.matlab import MatlabCommand
 import shutil
 import tempfile
 from arcana.exceptions import ArcanaUsageError
-from contextlib import ExitStack
 from collections.abc import Iterable
 
 

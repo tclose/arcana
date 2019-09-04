@@ -243,7 +243,7 @@ class Pipeline(object):
                     "Cannot provide both joinsource and iterfield to when "
                     "attempting to add '{}' node to {}"
                     .format(name, self._error_msg_loc))
-            node_cls = self.study.environment.node_types['map']
+            node_type = 'map'
         elif 'joinsource' in kwargs or 'joinfield' in kwargs:
             if not ('joinfield' in kwargs and 'joinsource' in kwargs):
                 raise ArcanaDesignError(
@@ -253,19 +253,20 @@ class Pipeline(object):
             joinsource = kwargs['joinsource']
             if joinsource in self.study.ITERFIELDS:
                 self._iterator_joins.add(joinsource)
-            node_cls = self.study.environment.node_types['join']
+            node_type = 'join'
             # Prepend name of pipeline of joinsource to match name of nodes
             kwargs['joinsource'] = '{}_{}'.format(self.name, joinsource)
         else:
-            node_cls = self.study.environment.node_types['base']
+            node_type = 'base'
         # Create node
-        node = node_cls(self.study.environment,
-                        interface,
-                        name="{}_{}".format(self._name, name),
-                        requirements=requirements,
-                        wall_time=wall_time,
-                        annotations=annotations,
-                        **kwargs)
+        node = self.study.environment.make_node(
+            interface,
+            type=node_type,
+            name="{}_{}".format(self._name, name),
+            requirements=requirements,
+            wall_time=wall_time,
+            annotations=annotations,
+            **kwargs)
         # Ensure node is added to workflow
         self._workflow.add_nodes([node])
         # Connect inputs, outputs and internal connections

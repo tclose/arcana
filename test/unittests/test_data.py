@@ -3,6 +3,7 @@ import shutil
 import os
 import os.path as op
 import unittest
+import pytest
 from unittest import TestCase
 from nipype.interfaces.utility import IdentityInterface
 from arcana.utils.testing import BaseTestCase, BaseMultiSubjectTestCase
@@ -101,6 +102,7 @@ class TestFilesetSpecPickle(TestCase):
             self.assertEqual(obj, re_obj)
 
 
+@pytest.mark.filterwarnings("ignore:PytestCollectionWarning")
 class TestMatchStudy(with_metaclass(StudyMetaClass, Study)):
 
     add_data_specs = [

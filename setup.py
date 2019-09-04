@@ -1,3 +1,4 @@
+
 import sys
 import os.path
 from setuptools import setup, find_packages
@@ -7,7 +8,7 @@ PACKAGE_NAME = 'arcana'
 # Get version from module inside package
 sys.path.insert(0, os.path.join(os.path.dirname(__file__),
                                 PACKAGE_NAME))
-from __about__ import __version__, install_requires  # @UnresolvedImport @IgnorePep8
+from __about__ import __version__, install_requires, tests_requires  # noqa pylint: disable=no-name-in-module
 sys.path.pop(0)
 
 
@@ -23,6 +24,7 @@ setup(
         'Abstracted repository-centric analysis framework'),
     long_description=open('README.rst').read(),
     install_requires=install_requires,
+    tests_requires=tests_requires,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Healthcare Industry",

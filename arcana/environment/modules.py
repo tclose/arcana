@@ -95,11 +95,12 @@ class ModulesEnv(Environment):
         self._available = self.available()
 
     def __eq__(self, other):
-        return (self._packages_map == other._packages_map and
-                self._versions_map == other._versions_map and
-                self._fail_on_missing == other._fail_on_missing and
-                self._ignore_unrecog == other._ignore_unrecog and
-                self._detect_exact_versions == other._detect_exact_versions)
+        return (
+            self._packages_map == other._packages_map
+            and self._versions_map == other._versions_map
+            and self._fail_on_missing == other._fail_on_missing
+            and self._ignore_unrecog == other._ignore_unrecog
+            and self._detect_exact_versions == other._detect_exact_versions)
 
     def satisfy(self, *requirements):
         versions = []
@@ -142,29 +143,33 @@ class ModulesEnv(Environment):
                     # requirements to detect their version (matlab packages in
                     # particular)
                     self.load(version)
-                    exact_version = req.detect_version(
-                        local_name=local_name, local_version=local_ver_name)
                     try:
-                        if not req_range.within(exact_version):
-                            raise ArcanaVersionError(
-                                "Version of {} specified by module {} does "
-                                "not match expected {} and is outside the "
-                                "acceptable range [{}]"
-                                .format(req.name, local_ver_name,
-                                        str(version), str(req_range)))
-                        if exact_version < version:
-                            raise ArcanaVersionError(
-                                "Version of {} specified by module {} is less "
-                                "than the expected {}".format(
-                                    req.name, local_ver_name, str(version)))
-                    finally:
+                        exact_version = req.detect_version(
+                            local_name=local_name,
+                            local_version=local_ver_name)
+                    except Exception as e:
                         # Append the loaded version to the list of versions to
-                        # ensure that it is unloaded again before the exception
+                        # ensure that it is unloaded again before any exception
                         # is raised out of this method
+                        versions.append(version)
+                        raise e
+                    else:
                         versions.append(exact_version)
-                    version = exact_version
-                # Get latest requirement from list of possible options
-                versions.append(version)
+                    if not req_range.within(exact_version):
+                        raise ArcanaVersionError(
+                            "Version of {} specified by module {} does "
+                            "not match expected {} and is outside the "
+                            "acceptable range [{}]"
+                            .format(req.name, local_ver_name,
+                                    str(version), str(req_range)))
+                    if exact_version < version:
+                        raise ArcanaVersionError(
+                            "Version of {} specified by module {} is less "
+                            "than the expected {}".format(
+                                req.name, local_ver_name, str(version)))
+                else:
+                    # Get latest requirement from list of possible options
+                    versions.append(version)
         finally:
             # Unload detected versions
             if self._detect_exact_versions:

@@ -1,5 +1,4 @@
 from __future__ import division
-from builtins import str  # @UnusedImports
 from builtins import object
 import time
 import logging
@@ -153,3 +152,6 @@ class Environment(object):
         return {
             'type': get_class_info(type(self)),
             'host': HOSTNAME}
+
+    def make_node(self, *args, type='base', **kwargs):
+        return self.node_types[type](self, *args, **kwargs)

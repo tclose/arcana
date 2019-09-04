@@ -19,3 +19,6 @@ install_requires = [
     'pybids>=0.5.1',
     'contextlib2>=0.5.5',
     'deepdiff>=3.3']
+
+tests_require = [
+    'pytest>=5.0.1']
